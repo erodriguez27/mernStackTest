@@ -5,6 +5,7 @@ const chaiHttp = require("chai-http");
 
 const {server} = require('../index');
 
+const should = chai.should();
 const assert = chai.assert;
 const expect = chai.expect;
 
@@ -17,12 +18,13 @@ describe("Files endpoint", () => {
       mockServer.yields(null);
       chai
         .request(server)
-        .get("/")
+        .get("/files/data")
         .end((_err, res) => {
           expect(res).to.be.an('object');
           res.should.have.status(200);
-          expect(res.results).to.exist;
-          expect(res.results).to.be.an('array');
+          expect(res.body).to.exist;
+          expect(res.body.results).to.exist;
+          expect(res.body.results).to.be.an('array');
           assert.isAbove(res.body.results.length, 0, 'The returned array must have at least a file');
           mockServer.restore();
           done();
