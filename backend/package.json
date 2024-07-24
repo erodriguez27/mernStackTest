@@ -1,0 +1,18 @@
+{
+  "name": "toolbox_backend",
+  "version": "1.0.0",
+  "description": "backend for toolbox fullstack mern position test",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "npm test"
+  },
+  "author": "Edu",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4"
+  }
+}
