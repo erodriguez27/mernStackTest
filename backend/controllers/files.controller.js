@@ -1,32 +1,44 @@
-const { getFileInfo, getListOfFiles } = require("../services/files.service");
-const { parseCsvFile } = require("../utils/parseFile");
+const { getFileInfo, getListOfFiles } = require('../services/files.service')
+const { parseCsvFile } = require('../utils/parseFile')
 
 const getFilesWithContent = async (req, res) => {
-  const { fileName } = req.query;
-  let files = fileName ? [fileName] : [];
+  const { fileName } = req.query
+  let files = fileName ? [fileName] : []
 
   if (!fileName) {
-    listFiles = await getListOfFiles();
+    const listFiles = await getListOfFiles()
     if (listFiles.files.length > 0) {
-      files = listFiles.files;
+      files = listFiles.files
     }
   }
 
-  const results = [];
+  const results = []
   for (let i = 0; i < files.length; i++) {
-    const file = await getFileInfo(files[i]);
+    const file = await getFileInfo(files[i])
     if (file?.data) {
-      const parsed = await parseCsvFile(file.data);
+      const parsed = await parseCsvFile(file.data)
       if (parsed?.lines.length > 0) {
-        results.push(parsed);
+        results.push(parsed)
       }
     }
   }
-  if (results.length === 0) return res.sendStatus(204);
+  if (results.length === 0) return res.sendStatus(204)
 
-  return res.status(200).json({ results });
-};
+  return res.status(200).json({ results })
+}
+
+const listFiles = async (_req, res) => {
+  let results = []
+  const listFiles = await getListOfFiles()
+  if (listFiles.files.length > 0) {
+    results = listFiles.files
+  }
+  if (results.length === 0) return res.sendStatus(204)
+
+  return res.status(200).json({ results })
+}
 
 module.exports = {
   getFilesWithContent,
-};
+  listFiles
+}
