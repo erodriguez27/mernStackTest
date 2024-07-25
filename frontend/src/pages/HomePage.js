@@ -1,23 +1,35 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import { FileTable } from "../components/FileTable.component";
 import { LoadSpinner } from "../components/Spinner.component";
-
 import { getFilesData } from "../services/toolbox.service";
+import { setFiles } from "../store/slices/files.slice";
+import { useAppSelector, useAppDispatch } from "../hooks/redux";
 
 const HomePage = () => {
-  const [showSpinner, setShowSpinner] = useState(true);
-  const [files, setFiles] = useState();
+  const dispatch = useAppDispatch();
+  const files = useAppSelector((state) => state.filesReducer.files);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getFilesData().then((res) => {
-      if (res?.results) {
-        setFiles(res.results);
-        setShowSpinner(false);
+    const fetchData = async () => {
+      try {
+        const response = await getFilesData();
+        if (response?.results) {
+          await dispatch(setFiles(response.results));
+        }
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching files:", error);
+        setIsLoading(false);
       }
-    });
-  }, []);
-  if (showSpinner) {
+    };
+
+    fetchData();
+  }, [dispatch]);
+
+  if (isLoading) {
     return <LoadSpinner></LoadSpinner>;
   }
 
@@ -25,8 +37,8 @@ const HomePage = () => {
     <>
       <FileTable
         files={files}
-        showSpinner={showSpinner}
-        setShowSpinner={setShowSpinner}
+        showSpinner={isLoading}
+        setShowSpinner={setIsLoading}
       ></FileTable>
     </>
   );

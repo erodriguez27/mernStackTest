@@ -1,7 +1,7 @@
 import React from "react";
 
 export const getTableBody = (files) => {
-  if (files.length === 0) {
+  if (!files?.length) {
     return <tbody></tbody>;
   }
   return (

@@ -1,13 +1,20 @@
 import React from "react";
 
+import { Provider } from "react-redux";
+
 import AppRouter from "./routes";
+import store from "./store";
 import AppLayout from "./layouts/AppLayout";
+
+import "./main.css";
 
 function App() {
   return (
-    <AppLayout>
-      <AppRouter />
-    </AppLayout>
+    <Provider store={store}>
+      <AppLayout>
+        <AppRouter />
+      </AppLayout>
+    </Provider>
   );
 }
 
