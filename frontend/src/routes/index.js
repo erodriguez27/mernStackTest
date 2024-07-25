@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 const HomePage = lazy(() => import('../pages/HomePage'));
 const ErrorPage = lazy(() => import('../pages/ErrorPage'));
 
-export default function AppRouter() {
+const AppRouter = () => {
   return (
     <Suspense>
       <Routes>
@@ -14,3 +14,5 @@ export default function AppRouter() {
     </Suspense>
   );
 }
+
+export default AppRouter;

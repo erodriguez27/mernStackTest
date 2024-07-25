@@ -8,7 +8,7 @@ import AppLayout from "./layouts/AppLayout";
 
 import "./main.css";
 
-function App() {
+const App = () => {
   return (
     <Provider store={store}>
       <AppLayout>
