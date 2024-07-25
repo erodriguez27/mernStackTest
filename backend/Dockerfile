@@ -1,4 +1,4 @@
-FROM node:16.20.0
+FROM node:14.21.3
 
 WORKDIR /app
 
@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 8080
+EXPOSE 3000
 
 CMD npm start

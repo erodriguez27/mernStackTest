@@ -1,0 +1,33 @@
+version: '3.7'
+name: myapp
+
+services:
+
+  toolbox:
+    image: alpine
+    container_name: toolbox
+    depends_on:
+      - frontend
+      - backend
+  frontend:
+    build:
+      context: ./frontend/
+    container_name: frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: bash -c "npm install & npm start"
+    ports:
+      - 8080:8080
+    env_file: shared.env
+
+  backend:
+    build:
+      context: ./backend/
+    container_name: backend
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: bash -c "npm install & npm start"
+    ports:
+      - 3023:3023

@@ -26,7 +26,7 @@ app.use('/files', filesRoutes())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 const server = new http.Server(app)
-const port = process.env.PORT || 3000
+const port = process.env.BACKEND_PORT || 3000
 
 // start server
 server.listen(port)
