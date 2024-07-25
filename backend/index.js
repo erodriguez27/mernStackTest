@@ -5,6 +5,8 @@ dotenv.config()
 const express = require('express')
 const http = require('http')
 const cors = require('cors')
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocs = require('./docs/swagger.config');
 
 const whiteListUrls = [
   /^(http?:\/\/)localhost(:\d+)?(\/.*)?$/
@@ -21,6 +23,7 @@ const app = express()
 app.use(express.json({ limit: '50mb' }))
 app.use(cors(optionsCors))
 app.use('/files', filesRoutes())
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 const server = new http.Server(app)
 const port = process.env.PORT || 3000
