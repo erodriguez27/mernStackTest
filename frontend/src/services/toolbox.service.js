@@ -1,8 +1,11 @@
 import { toolboxClient } from "../clients/toolbox.client";
 
-export const getFilesData = async () => {
+export const getFilesData = async (fileName) => {
   try {
-    const files = await toolboxClient.get("/files/data");
+    console.log(fileName)
+    const files = await toolboxClient.get(
+      "/files/data" + (fileName ? `?fileName=${fileName}` : "")
+    );
     if (files?.data) {
       return files.data;
     }
