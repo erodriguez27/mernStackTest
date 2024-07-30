@@ -31,3 +31,4 @@ services:
     command: bash -c "npm install & npm start"
     ports:
       - 3023:3023
+    env_file: shared.env
